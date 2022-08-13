@@ -55,8 +55,8 @@ resource "aws_route_table_association" "subnet-c-route-table-association" {
 }
 
 resource "aws_instance" "instance" {
-  ami                         = "ami-cdbfa4ab"
-  instance_type               = "t2.small"
+  ami                         = "ami-0ad32127d6f7eb18a"
+  instance_type               = "t3.micro"
   vpc_security_group_ids      = [ aws_security_group.security-group.id ]
   subnet_id                   = aws_subnet.subnet-a.id
   associate_public_ip_address = true
