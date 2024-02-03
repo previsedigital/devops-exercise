@@ -1,29 +1,22 @@
-Congratulations on reaching this stage of our application process and thank you for taking part in this assessment exercise.
+Good day enigneer, please note, I find it 
 
-This is an exercise used to assess your approach to development and use of infrastructure as code tooling. This has been tested using terraform v0.14 we advise you use this version.
+As a DevOps Engineer I am running this stack for Previse organization. This will be done using Terraform in the eu-west-2 (Ohio)region. Looking at the downtime it experience during the weekend, I decided within myself that for it to be highly available, I will deploy it on a 3-Tier Network VPC whereby it will be deployed in two different regions with a public and two private subnets in each region.
 
-Here we have some terraform to build a simple VPC network, for now we have just one instance running the web server 
-Nginx in its default configuration, serving up the default welcome page. To run this use the following command...
+Created Public Route Table: I created a Public Route table which is associated to the public subnets, and then add 
+public route to it which will route traffic to the internet through the internet gateway.
+Create NAT GATEWAY: Created Nat Gateway in the Public Subnet AZ1 and Public Subnet AZ2, afterwards created 
+Private Route Table AZ1 and Private Route Table AZ2. Add route to each of the route table so as to route traffic to 
+the internet through each of the Nat Gateways and then associate the Route Table to Private Subnets in each 
+availability zone.
 
-    terraform init && terraform apply -var-file=london.tfvars
+For best practice, I would advice the file/webfiles ae uploaded into an S3 bucket, this would protect the file as any memeber of the team that doesn't have the S3FullAccessPermission won't be able to access it, this would mean that the webfiles are safe and won't be altered in anyway and if any of such happened we know those to hold accountable. I did not introduce this because i felt the user-data has been attached to the ec2 instance but i believe it is something we can correct in the future.
 
-We want this to be extended. You're tasked with making the alterations detailed below. After completing each stage, 
-a test to show the things are still working would be to run the following command. Expect to see the Nginx welcome 
-page HTML.
+To avoid donwtime of any of our website, i am introducing the use of auto-scaling group in the deployment. This is why i have Application Load Balancer created in the public subnet so as to ensure effectiveness and balance of traffic across multiple instances. 
 
-    terraform output nginx_domain | xargs curl
+Creating an Application Load Balancer: Since I will be using an EC2 instances to host the website, it is to note that 
+Application Load Balancer would help distribute the web traffic across EC2 instances in multiple Availability Zones. I would launch EC2 instance in both availability zone. Haven launch the EC2 instance in both availability zone, I would go ahead to create a TARGET GROUP. The function of this Target group is to have the EC2 Instances in both AZs and allow the Application Load Balancer to route traffic to them. Once that has been created, I would then proceed to 
+creating the Application Load Balancer with IP Address type of IPV4, with the mapping being in any of the Public 
+Subnets created. Attached my created Application Load Balancer Security Groups. Set up a listener of port 80 (HTTP) and then create the Application Load Balancer.The load balancer will make this website highly available and also fault tolerance.
 
+Creating an Auto-Scaling Group: Not only do we need the auto scaling group for high availability, it can also serve purpose of Cost Consideration and optimization, I would create an Auto Scaling Group which would help to automatically adjust the number of instances needed in response to changes in demand for the website, thereby providing scalability, high availability and monitor health checks of all instances, in the event that any Instance fails health check or become unavailable, Auto Scaling Group would terminate it and automatically launches a new one so as to maintain the desired capacity.
 
-1. We want to be able to run the same stack closer to our customers in the US. Please build the same stack in 
-the us-east-2 (Ohio) region, leaving the existing one in place too.  Feel free to modify the code and or structure 
-as much as needed in order to do this, bearing in mind we may want to deploy the stack to more region in the future. You'll need to consider terraform state each stack should have its own state but don't feel you need to go as far as setting up remote state. As for a CIDR the new VPC use whatever you feel like, providing it is compliant with RFC-1918 and does not overlap with the dublin network.
-
-2. The EC2 instance running Nginx went down over the weekend, we had an outage, it's been decided that we need a solution that is more resilient than just a single instance. Please implement a solution that you'd be confident would continue to run in the event one instance goes down. 
-
-3. We are looking to improve the security and segregation of our network we've decided we would like private subnets that are not addressable on the internet. Modify the VPC to meet this requirement, the private subnets should still have egress internet connectivity.
-
-4. In order to provide a consistent environment on the teams CI server and each engineer's workstation we've decided it would make sense to run terraform in Docker. Create a Dockerfile and a wrapper script that will enable this. The script should be callable with the same arguments as the terraform cli tool, i.e. init/plan/apply etc
-
-Please note any assumptions you make and what you would do differently given more time or in a real world production system and it would also be great to hear any design thoughts and tradeoffs you made when deciding on a solution.
-
-As a guide this test should take approximately 3 hours, it is designed to be challenging and there are lots of ways to approach it. It’s ok to spend more time on it but we don’t want to take up an excessive amount of your time. If you don’t have time to complete everything you’d like to, feel free to submit a partial solution with a summary of how you’d tackle the outstanding aspects. It won’t count against you, we’re aware that varying circumstances can make finding time for recruitment exercises tricky.
