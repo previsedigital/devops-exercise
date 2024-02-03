@@ -1,4 +1,3 @@
-Good day enigneer, please note, I find it 
 
 As a DevOps Engineer I am running this stack for Previse organization. This will be done using Terraform in the eu-west-2 (Ohio)region. Looking at the downtime it experience during the weekend, I decided within myself that for it to be highly available, I will deploy it on a 3-Tier Network VPC whereby it will be deployed in two different regions with a public and two private subnets in each region.
 
