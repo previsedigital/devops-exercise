@@ -8,4 +8,5 @@ variable "subnet-cidr-b" {}
 
 variable "subnet-cidr-c" {}
 
+variable "private-subnet-cidr" {}
 

@@ -1,0 +1,13 @@
+
+When transitioning to a production environment, several key changes would be necessary 
+to ensure scalability, reliability, and maintainability. 
+Introducing Terraform modules would be a fundamental step in this process. 
+
+Furthermore, moving away from running Terraform commands locally in 
+Docker containers to implementing infrastructure provisioning within 
+a CI/CD pipeline would enhance the deployment process. 
+
+In addition to these changes, several other considerations are 
+vital for a production-grade environment. 
+Utilizing remote state storage, such as Terraform Cloud or AWS S3, 
+enhances collaboration and ensures consistency across distributed teams. 
