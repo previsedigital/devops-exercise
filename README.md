@@ -27,3 +27,5 @@ as much as needed in order to do this, bearing in mind we may want to deploy the
 Please note any assumptions you make and what you would do differently given more time or in a real world production system and it would also be great to hear any design thoughts and tradeoffs you made when deciding on a solution.
 
 As a guide this test should take approximately 3 hours, it is designed to be challenging and there are lots of ways to approach it. It’s ok to spend more time on it but we don’t want to take up an excessive amount of your time. If you don’t have time to complete everything you’d like to, feel free to submit a partial solution with a summary of how you’d tackle the outstanding aspects. It won’t count against you, we’re aware that varying circumstances can make finding time for recruitment exercises tricky.
+
+Zip and email your solution. Do not send a Pull Request to this repo.
