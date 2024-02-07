@@ -16,7 +16,7 @@ page HTML.
 
 1. We want to be able to run the same stack closer to our customers in the US. Please build the same stack in 
 the us-east-2 (Ohio) region, leaving the existing one in place too.  Feel free to modify the code and or structure 
-as much as needed in order to do this, bearing in mind we may want to deploy the stack to more region in the future. You'll need to consider terraform state each stack should have its own state but don't feel you need to go as far as setting up remote state. As for a CIDR the new VPC use whatever you feel like, providing it is compliant with RFC-1918 and does not overlap with the dublin network.
+as much as needed in order to do this, bearing in mind we may want to deploy the stack to more region in the future. You'll need to consider terraform state each stack should have its own state but don't feel you need to go as far as setting up remote state. As for a CIDR the new VPC use whatever you feel like, providing it is compliant with RFC-1918 and does not overlap with the London network.
 
 2. The EC2 instance running Nginx went down over the weekend, we had an outage, it's been decided that we need a solution that is more resilient than just a single instance. Please implement a solution that you'd be confident would continue to run in the event one instance goes down. 
 
